@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pantalla login</title>
+    <%- include ('partials/head.html') %>
+</head>
+
+<body>
+    <%- include ('partials/navigation.html') %>
+        <div class="modal-dialog text-center">
+            <div class="col-sm-8 main-section">
+                <div class="modal-content">
+                    <div class="col-12 user-img mb-2">
+                        <img src="img/user.png"/>
+                    </div>
+                    <h5 class="text-white pb-2">Iniciar Sesión</h5>
+                    <form class="col-12" th:action="@{/login}" method="get">
+                        <div class="form-group" id="user-group">
+                            <input type="text" class="form-control" placeholder="Usuario" name="username" />
+                        </div>
+                        <div class="form-group" id="contrasena-group">
+                            <input type="password" class="form-control" placeholder="Contraseña" name="password" />
+                        </div>
+                        <button type="submit" class="btn btn-primary button-custom"><i class="fas fa-sign-in-alt icon"></i> Ingresar
+                        </button>
+                    </form>
+                    <!--
+                          <div th:if="${param.error}" class="alert alert-danger" role="alert">
+                        Usuario y contraseña inválidos.
+                    </div>
+                    <div th:if="${param.logout}" class="alert alert-success" role="alert">
+                        Ya estás logeado.
+                    </div>
+                    -->
+                  
+                </div>
+            </div>
+        </div>
+</body>
+
+</html>
