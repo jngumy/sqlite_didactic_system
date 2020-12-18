@@ -10,8 +10,7 @@ body{
 }
 
 .modal-content{
-    background-color: #212529;
-    opacity: .85;
+    opacity: .95;
     padding: 0 20px;
     box-shadow: 0px 0px 3px #848484;
 }

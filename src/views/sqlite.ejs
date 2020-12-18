@@ -13,7 +13,7 @@
 
     <nav class="navbar navbar-expand-lg navbar-primary bg-dark">
         <div class="container">
-            <a class="navbar-brand" href="#">SQLite</a>
+            <a class="navbar-brand" href="/">SQLite - BD2 FIUNMDP</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
                 aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -33,20 +33,81 @@
     <div class="container">
         <div class="row">
             <div class="col-sm">
-                <h5 class="py-3 mb-0">Ingresar sentencias SQL</h5>
-                <div class="">
-                    <textarea id="commands" class="form-control">Ingresar sentencias SQL a ejecutar</textarea>
+                <div class="d-flex justify-content-between">
+                    <h5 class="py-3 mb-0 ">Ingresar sentencias SQL</h5>
+                    
                 </div>
-                <div class="d-flex">
-                    <button id="execute" class="btn btn-primary btn-sm mt-3 mr-3 ">
-                        Run SQL
-                    </button>
-                    <button class="btn btn-primary btn-sm mt-3 float-right">
-                        Cargar plantilla CRUD
-                    </button>
+                <div class="row">
+                    <div class="col-sm-10 ">
+                        <textarea id="commands" class="form-control">-- Ingresar sentencias SQL a ejecutar</textarea>
+                    </div>
+                    <div class="col-sm-2 pb-2">
+                        <button id="create-btn" class="btn btn-dark btn-sm btn-block">
+                            <i class="fa fa-pencil-alt mr-1"></i>Ejemplo CREATE
+                        </button>
+                        <button id="select-btn" class="btn btn-dark btn-sm mt-3 btn-block">
+                            <i class="fa fa-pencil-alt mr-1"></i>Ejemplo SELECT
+                        </button>
+                        <button id="update-btn" class="btn btn-dark btn-sm mt-3 btn-block">
+                            <i class="fa fa-pencil-alt mr-1"></i>Ejemplo UPDATE
+                        </button>
+                        <button id="delete-btn" class="btn btn-dark btn-sm mt-3 btn-block ">
+                            <i class="fa fa-pencil-alt mr-1"></i>Ejemplo DELETE
+                        </button>
+                        <button id="trigger-btn" class="btn btn-info btn-sm mt-3 btn-block ">
+                            <i class="fa fa-pencil-alt mr-1"></i>Ejemplo TRIGGER
+                        </button>
+                        <button id="index-btn" class="btn btn-info btn-sm mt-3 btn-block ">
+                            <i class="fa fa-pencil-alt mr-1"></i>Ejemplo INDEX
+                        </button>
+                    </div>
+                    <hr/>
+                   
+                </div>
+               
+                <div class="row">
+                    <div class="col-sm mt-4">
+                        <button id="execute" class="btn btn-primary btn-sm  mr-2 ">
+                            <i class="fa fa-terminal"></i>
+                            Run SQL
+                        </button>
+                        <button id="loadcrud" class="btn btn-primary btn-sm  mr-2">
+                            <i class="fa fa-box mr-1"></i>Cargar plantilla CRUD
+                        </button>
+                        <button id="savedb" class="btn btn-primary btn-sm  mr-2">
+                            <i class="fa fa-download"></i> Descargar BD
+                        </button>
+    
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-success btn-sm " data-toggle="modal"
+                            data-target="#exampleModal">
+                            <i class="fa fa-upload"></i>
+                            Cargar archivo de BD
+                        </button>
+                    </div>
+                   
                 </div>
 
-
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel"> <i class="fa fa-upload mr-2"></i>Cargar archivo de Base de datos (.db)</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <input type='file' id='dbfile'>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
 
                 <!--
@@ -56,7 +117,7 @@
                 </div>
                
                 -->
-                <div class="col-sm mt-3" id="error">
+                <div class="col-sm mt-3 pl-0" id="error">
 
                 </div>
                 <hr />
