@@ -17,7 +17,7 @@
                         <img src="img/user.png"/>
                     </div>
                     <h5 class="text-white pb-2">Iniciar Sesión</h5>
-                    <form class="col-12" th:action="@{/login}" method="get">
+                    <form class="col-12" id="login" name="login" method="post" action="/login">
                         <div class="form-group" id="user-group">
                             <input type="text" class="form-control" placeholder="Usuario" name="username" />
                         </div>
@@ -27,6 +27,7 @@
                         <button type="submit" class="btn btn-primary button-custom"><i class="fas fa-sign-in-alt icon"></i> Ingresar
                         </button>
                     </form>
+
                     <!--
                           <div th:if="${param.error}" class="alert alert-danger" role="alert">
                         Usuario y contraseña inválidos.

@@ -18,12 +18,12 @@
                     <div>
                         <h5 class="text-white pb-2">Registrarse</h5>
                     </div>
-                    <form class="col-12" th:action="@{/login}" method="get">
+                    <form id="register" name="register" class="col-12" method="post" action="/register">
                         <div class="form-group" id="user-group">
-                            <input type="text" class="form-control" placeholder="Nombre" name="username" />
+                            <input type="text" class="form-control" placeholder="Nombre" name="firstname"/>
                         </div>
                         <div class="form-group" id="user-group">
-                            <input type="text" class="form-control" placeholder="Apellido" name="username" />
+                            <input type="text" class="form-control" placeholder="Apellido" name="lastname" />
                         </div>
                         <div class="form-group" id="user-group">
                             <input type="text" class="form-control" placeholder="Nombre de usuario" name="username" />
@@ -31,11 +31,7 @@
                         <div class="form-group" id="contrasena-group">
                             <input type="password" class="form-control" placeholder="Contraseña" name="password" />
                         </div>
-                        <div class="form-group" id="contrasena-group">
-                            <input type="password" class="form-control" placeholder="Confirmar Contraseña" name="password" />
-                        </div>
-                        <button type="submit" class="btn btn-primary button-custom"><i class="fas fa-sign-in-alt icon"></i> Registrarse
-                        </button>
+                        <input type="submit" value="Sign Up" class="btn btn-primary button-custom"/>
                     </form>
                     <!--
                     <div th:if="${param.error}" class="alert alert-danger" role="alert">
