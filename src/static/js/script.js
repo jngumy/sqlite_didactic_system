@@ -20,6 +20,7 @@
     worker.onerror = error;
    // Open a database
    worker.postMessage({ action: 'open' });
+
    
    // Connect to the HTML element we 'print' to
    function print(text) {
@@ -45,6 +46,7 @@
            toc("Ejecutando SQL");
            if (!results) {
                error({message: event.data.error});
+               postHistorial({query: editor.getValue(), results: event.data.error });
                return;
            }
    
@@ -54,9 +56,13 @@
                outputElm.appendChild(tableCreate(results[i].columns, results[i].values));
            }
            toc("Mostrando resultados");
+           //console.log(outputElm.innerHTML);
+           postHistorial({query: editor.getValue(), results: outputElm.innerHTML });
+
        }
        worker.postMessage({ action: 'exec', sql: commands });
        outputElm.textContent = "Resolviendo la consulta...";
+      
    }
    
    // Create an HTML table for query results
@@ -87,6 +93,7 @@
    function execEditorContents() {
        noerror();
        execute(editor.getValue() + ';');
+       
    }
    execBtn.addEventListener("click", execEditorContents, true);
    
@@ -108,7 +115,6 @@
     //load CRUD template
    
     function loadCRUD(){
-      var doc = editor.getDoc();
       //doc.replaceSelection('holaa');
       editor.setValue(`    DROP TABLE IF EXISTS empleados;
        CREATE TABLE empleados( id integer,  nombre text,
@@ -141,7 +147,6 @@
    //load CREATE TABLE template example
    
    function createExampleAppend(){
-       var doc = editor.getDoc();
        editor.setValue(`-- Ejemplo de sentencia CREATE de la documentación oficial de sqlite (https://www.sqlitetutorial.net/sqlite-create-table/)
    
        CREATE TABLE [IF NOT EXISTS] [schema_name].table_name (
@@ -156,7 +161,6 @@
     //load CREATE TABLE template example
    
    function selectExampleAppend(){
-       var doc = editor.getDoc();
        editor.setValue(`-- Ejemplo de sentencia SELECT de la documentación oficial de sqlite (https://www.sqlitetutorial.net/sqlite-select/)
    
        SELECT DISTINCT column_list
@@ -174,7 +178,6 @@
     //load UPDATE TABLE template example
    
    function updateExampleAppend(){
-       var doc = editor.getDoc();
        editor.setValue(`-- Ejemplo de sentencia UPDATE de la documentación oficial de sqlite (https://www.sqlitetutorial.net/sqlite-update/)
    
        UPDATE table
@@ -192,7 +195,6 @@
      //load DELETE template example
    
    function deleteExampleAppend(){
-       var doc = editor.getDoc();
        editor.setValue(`-- Ejemplo de sentencia DELETE de la documentación oficial de sqlite (https://www.sqlitetutorial.net/sqlite-delete/)
    
        DELETE FROM table
@@ -207,7 +209,6 @@
      //load TRIGGER template example
    
      function triggerExampleAppend(){
-       var doc = editor.getDoc();
        editor.setValue(`-- Ejemplo de sentencia CREATE TRIGGER de la documentación oficial de sqlite (https://www.sqlitetutorial.net/sqlite-trigger/)
    
        CREATE TRIGGER [IF NOT EXISTS] trigger_name 
@@ -224,7 +225,6 @@
      //load CREATE INDEX template example
    
      function createIndexExampleAppend(){
-       var doc = editor.getDoc();
        editor.setValue(`-- Ejemplo de sentencia CREATE INDEX de la documentación oficial de sqlite (https://www.sqlitetutorial.net/sqlite-index/)
    
        CREATE [UNIQUE] INDEX index_name 
@@ -297,3 +297,21 @@
  };
  
  
+// Example POST method implementation:
+async function postHistorial(data = {}) {
+    // Default options are marked with *
+    const response = await fetch('/save-consulta', {
+      method: 'POST', // *GET, POST, PUT, DELETE, etc.
+      mode: 'cors', // no-cors, *cors, same-origin
+      cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+      credentials: 'same-origin', // include, *same-origin, omit
+      headers: {
+        'Content-Type': 'application/json'
+        // 'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      redirect: 'follow', // manual, *follow, error
+      referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+      body: JSON.stringify(data) // body data type must match "Content-Type" header
+    });
+    return response.json(); // parses JSON response into native JavaScript objects
+  }

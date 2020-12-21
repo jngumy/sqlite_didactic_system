@@ -23,9 +23,7 @@ module.exports = function (passport, user) {
                 }
             }).then(function (user) {
                 if (user) {
-                    return done(null, false, {
-                        message: 'Ese nombre de usuario ya ha sido asignado'
-                    });
+                    return done(null, false, req.flash('message', 'Ese nombre de usuario ya ha sido asignado'));
                 } else {
                     var userPassword = generateHash(password);
                     var data =
@@ -41,7 +39,7 @@ module.exports = function (passport, user) {
                             return done(null, false);
                         }
                         if (newUser) {
-                            return done(null, newUser);
+                            return done(null, newUser, req.flash('message', 'Usuario creado exitosamente'));
                         }
                     });
                 }
@@ -60,7 +58,7 @@ module.exports = function (passport, user) {
 
 
         function (req, username, password, done) {
-            //var User = user;
+            var User = user;
             var isValidPassword = function (userpass, password) {
                 return bCrypt.compareSync(password, userpass);
             }
@@ -71,27 +69,21 @@ module.exports = function (passport, user) {
                 }
             }).then(function (user) {
                 if (!user) {
-                    return done(null, false, {
-                        message: 'Usuario inexistente'
-                    });
+                    return done(null, false, req.flash('message', 'Usuario inexistente'));
                 }
                 if (!isValidPassword(user.password, password)) {
-                    return done(null, false, {
-                        message: 'Contraseña incorrecta.'
-                    });
+                    return done(null, false, req.flash('message', 'Contraseña incorrecta'));
                 }
 
                 var userinfo = user.get();
                 return done(null, userinfo);
             }).catch(function (err) {
                 console.log("Error:", err);
-                return done(null, false, {
-                    message: 'Ocurrió un error con tu inicio de sesión'
-                });
+                return done(null, false, req.flash('message', 'Ocurrió un error en el Inicio de Sesión'));
             });
         }
     ));
-
+    
     //serialize
     passport.serializeUser(function (user, done) {
         done(null, user.id);

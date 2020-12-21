@@ -3,10 +3,11 @@ var passport = require('passport')
 var session = require('express-session')
 var bodyParser = require('body-parser')
 var sqlite3 = require('sqlite3');
-const { Sequelize } = require('sequelize');
-
+const { Sequelize , DataTypes} = require('sequelize');
+var flash = require('connect-flash');
 
 var db = new sqlite3.Database('./database.sqlite3');
+
 
 // sequelize config Passing parameters separately (sqlite)
 const sequelize = new Sequelize({
@@ -14,6 +15,25 @@ const sequelize = new Sequelize({
     storage: './database.sqlite3'
 });
 
+const Historial = sequelize.define('historial', {
+    id: {
+        autoIncrement: true,
+        primaryKey: true,
+        type: Sequelize.INTEGER
+    },
+    consulta : {
+        type: Sequelize.STRING,
+        notEmpty: true
+    },
+    resultado : {
+        type: Sequelize.STRING,
+        notEmpty: false
+    },
+    fecha : {
+        type: Sequelize.STRING,
+    },
+
+})
 
 const User = sequelize.define('user', {
     id: {
@@ -51,6 +71,8 @@ const User = sequelize.define('user', {
     // Other model options go here
   });
 
+Historial.belongsTo(User);
+
 async function syncDB(){
     try {
         await sequelize.sync();
@@ -69,6 +91,7 @@ const path = require("path");
 
 
 // For Passport
+app.use(flash())
 app.use(session({ secret: 'keyboard cat', resave: true, saveUninitialized: true })); // session secret
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
@@ -84,7 +107,7 @@ app.set('views', './views');
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(__dirname + '/static'));
 //routes
-var authRoute = require('./routes/index.js')(app,passport);
+var authRoute = require('./routes/index.js')(app,passport, Historial);
 
 
 
