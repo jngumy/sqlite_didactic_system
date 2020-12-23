@@ -16,4 +16,4 @@ COPY . .
 # expose ports
 EXPOSE 5000
 
-CMD [ "npm", "run dev" ]
+CMD [ "npm", "run", "dev" ]
