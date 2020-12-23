@@ -88,8 +88,6 @@ syncDB();
 const app = express();
 const path = require("path");
 
-
-
 // For Passport
 app.use(flash())
 app.use(session({ secret: 'keyboard cat', resave: true, saveUninitialized: true })); // session secret
@@ -106,12 +104,9 @@ app.set('view engine', 'ejs');
 app.set('views', './views');
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(__dirname + '/static'));
+
 //routes
 var authRoute = require('./routes/index.js')(app,passport, Historial);
-
-
-
-
 
 //load passport strategies
 require('./config/passport/passport.js')(passport, User);

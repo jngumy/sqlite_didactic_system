@@ -1,6 +1,6 @@
 
 module.exports = function(app, passport, Historial){
-    //var mensaje = '' ; 
+    
     app.get('/login', function (req, res) {
         res.render('login', {mensaje: req.flash('message')});
     });
@@ -52,11 +52,12 @@ module.exports = function(app, passport, Historial){
 
     app.post('/save-consulta', isLoggedIn, function(req, res){
         //recibir la consulta y tabla resultado y guardar en la bd
+        var fecha = new Date();
         var data =
         {
             consulta: req.body.query,
             resultado: req.body.results,
-            fecha: new Date().toISOString(),
+            fecha: fecha.toLocaleDateString() + ' ' + fecha.toLocaleTimeString(),
             userId: req.user.id
         };
         

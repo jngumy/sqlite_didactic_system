@@ -55,8 +55,7 @@ module.exports = function (passport, user) {
             passwordField: 'password',
             passReqToCallback: true // allows us to pass back the entire request to the callback
         },
-
-
+        
         function (req, username, password, done) {
             var User = user;
             var isValidPassword = function (userpass, password) {
@@ -74,7 +73,6 @@ module.exports = function (passport, user) {
                 if (!isValidPassword(user.password, password)) {
                     return done(null, false, req.flash('message', 'Contraseña incorrecta'));
                 }
-
                 var userinfo = user.get();
                 return done(null, userinfo);
             }).catch(function (err) {

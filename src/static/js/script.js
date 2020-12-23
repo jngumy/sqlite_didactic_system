@@ -18,8 +18,9 @@
     // Start the worker in which sql.js will run
     var worker = new Worker('js/worker.sql-wasm.js');
     worker.onerror = error;
-   // Open a database
-   worker.postMessage({ action: 'open' });
+   
+    // Open a database
+    worker.postMessage({ action: 'open' });
 
    
    // Connect to the HTML element we 'print' to
@@ -116,29 +117,29 @@
    
     function loadCRUD(){
       //doc.replaceSelection('holaa');
-      editor.setValue(`    DROP TABLE IF EXISTS empleados;
-       CREATE TABLE empleados( id integer,  nombre text,
+      editor.setValue(`DROP TABLE IF EXISTS empleados;
+CREATE TABLE empleados( id integer,  nombre text,
                                designacion text, manager integer,
                                fecha_contratacion  date, salario  integer,
                                comision  float,  depto integer);
       
-       INSERT INTO empleados VALUES (1,'JOHNSON','ADMIN',6,'1990-12-17',18000,NULL,4);
-       INSERT INTO empleados VALUES (2,'HARDING','MANAGER',9,'1998-02-02',52000,300,3);
-       INSERT INTO empleados VALUES (3,'TAFT','SALES I',2,'1996-01-02',25000,500,3);
-       INSERT INTO empleados VALUES (4,'HOOVER','SALES I',2,'1990-04-02',27000,NULL,3);
-       INSERT INTO empleados VALUES (5,'LINCOLN','TECH',6,'1994-06-23',22500,1400,4);
-       INSERT INTO empleados VALUES (6,'GARFIELD','MANAGER',9,'1993-05-01',54000,NULL,4);
-       INSERT INTO empleados VALUES (7,'POLK','TECH',6,'1997-09-22',25000,NULL,4);
-       INSERT INTO empleados VALUES (8,'GRANT','ENGINEER',10,'1997-03-30',32000,NULL,2);
-       INSERT INTO empleados VALUES (9,'JACKSON','CEO',NULL,'1990-01-01',75000,NULL,4);
-       INSERT INTO empleados VALUES (10,'FILLMORE','MANAGER',9,'1994-08-09',56000,NULL,2);
-       INSERT INTO empleados VALUES (11,'ADAMS','ENGINEER',10,'1996-03-15',34000,NULL,2);
-       INSERT INTO empleados VALUES (12,'WASHINGTON','ADMIN',6,'1998-04-16',18000,NULL,4);
-       INSERT INTO empleados VALUES (13,'MONROE','ENGINEER',10,'2000-12-03',30000,NULL,2);
-       INSERT INTO empleados VALUES (14,'ROOSEVELT','CPA',9,'1995-10-12',35000,NULL,1);
+INSERT INTO empleados VALUES (1,'JOHNSON','ADMIN',6,'1990-12-17',18000,NULL,4);
+INSERT INTO empleados VALUES (2,'HARDING','MANAGER',9,'1998-02-02',52000,300,3);
+INSERT INTO empleados VALUES (3,'TAFT','SALES I',2,'1996-01-02',25000,500,3);
+INSERT INTO empleados VALUES (4,'HOOVER','SALES I',2,'1990-04-02',27000,NULL,3);
+INSERT INTO empleados VALUES (5,'LINCOLN','TECH',6,'1994-06-23',22500,1400,4);
+INSERT INTO empleados VALUES (6,'GARFIELD','MANAGER',9,'1993-05-01',54000,NULL,4);
+INSERT INTO empleados VALUES (7,'POLK','TECH',6,'1997-09-22',25000,NULL,4);
+INSERT INTO empleados VALUES (8,'GRANT','ENGINEER',10,'1997-03-30',32000,NULL,2);
+INSERT INTO empleados VALUES (9,'JACKSON','CEO',NULL,'1990-01-01',75000,NULL,4);
+INSERT INTO empleados VALUES (10,'FILLMORE','MANAGER',9,'1994-08-09',56000,NULL,2);
+INSERT INTO empleados VALUES (11,'ADAMS','ENGINEER',10,'1996-03-15',34000,NULL,2);
+INSERT INTO empleados VALUES (12,'WASHINGTON','ADMIN',6,'1998-04-16',18000,NULL,4);
+INSERT INTO empleados VALUES (13,'MONROE','ENGINEER',10,'2000-12-03',30000,NULL,2);
+INSERT INTO empleados VALUES (14,'ROOSEVELT','CPA',9,'1995-10-12',35000,NULL,1);
       
-       SELECT designacion,COUNT(*) AS nbr, (AVG(salario)) AS promedio_salario FROM empleados GROUP BY designacion ORDER BY promedio_salario DESC;
-       SELECT nombre ,fecha_contratacion FROM empleados ORDER BY fecha_contratacion;`);
+SELECT designacion,COUNT(*) AS nbr, (AVG(salario)) AS promedio_salario FROM empleados GROUP BY designacion ORDER BY promedio_salario DESC;
+SELECT nombre ,fecha_contratacion FROM empleados ORDER BY fecha_contratacion;`);
    }
    
    loadCRUDElm.addEventListener("click", loadCRUD, true);
@@ -149,11 +150,11 @@
    function createExampleAppend(){
        editor.setValue(`-- Ejemplo de sentencia CREATE de la documentación oficial de sqlite (https://www.sqlitetutorial.net/sqlite-create-table/)
    
-       CREATE TABLE [IF NOT EXISTS] [schema_name].table_name (
-       column_1 data_type PRIMARY KEY,
-       column_2 data_type NOT NULL,
-       column_3 data_type DEFAULT 0,
-       table_constraints) [WITHOUT ROWID];`);
+CREATE TABLE [IF NOT EXISTS] [schema_name].table_name (
+column_1 data_type PRIMARY KEY,
+column_2 data_type NOT NULL,
+column_3 data_type DEFAULT 0,
+table_constraints) [WITHOUT ROWID];`);
     }
     
     createBtn.addEventListener("click", createExampleAppend, true);
@@ -163,14 +164,14 @@
    function selectExampleAppend(){
        editor.setValue(`-- Ejemplo de sentencia SELECT de la documentación oficial de sqlite (https://www.sqlitetutorial.net/sqlite-select/)
    
-       SELECT DISTINCT column_list
-       FROM table_list
-       JOIN table ON join_condition
-       WHERE row_filter
-       ORDER BY column
-       LIMIT count OFFSET offset
-       GROUP BY column
-       HAVING group_filter;`);
+SELECT DISTINCT column_list
+FROM table_list
+JOIN table ON join_condition
+WHERE row_filter
+ORDER BY column
+LIMIT count OFFSET offset
+GROUP BY column
+HAVING group_filter;`);
     }
     
     selectBtn.addEventListener("click", selectExampleAppend, true);
@@ -180,13 +181,13 @@
    function updateExampleAppend(){
        editor.setValue(`-- Ejemplo de sentencia UPDATE de la documentación oficial de sqlite (https://www.sqlitetutorial.net/sqlite-update/)
    
-       UPDATE table
-       SET column_1 = new_value_1,
-           column_2 = new_value_2
-       WHERE
-           search_condition 
-       ORDER column_or_expression
-       LIMIT row_count OFFSET offset;`);
+UPDATE table
+SET column_1 = new_value_1,
+    column_2 = new_value_2
+WHERE
+    search_condition 
+ORDER column_or_expression
+LIMIT row_count OFFSET offset;`);
     }
     
     updateBtn.addEventListener("click", updateExampleAppend, true);
@@ -197,10 +198,10 @@
    function deleteExampleAppend(){
        editor.setValue(`-- Ejemplo de sentencia DELETE de la documentación oficial de sqlite (https://www.sqlitetutorial.net/sqlite-delete/)
    
-       DELETE FROM table
-       WHERE search_condition
-       ORDER BY criteria
-       LIMIT row_count OFFSET offset;`);
+DELETE FROM table
+WHERE search_condition
+ORDER BY criteria
+LIMIT row_count OFFSET offset;`);
     }
     
     deleteBtn.addEventListener("click", deleteExampleAppend, true);
@@ -211,13 +212,13 @@
      function triggerExampleAppend(){
        editor.setValue(`-- Ejemplo de sentencia CREATE TRIGGER de la documentación oficial de sqlite (https://www.sqlitetutorial.net/sqlite-trigger/)
    
-       CREATE TRIGGER [IF NOT EXISTS] trigger_name 
-         [BEFORE|AFTER|INSTEAD OF] [INSERT|UPDATE|DELETE] 
-          ON table_name
-          [WHEN condition]
-       BEGIN
-           statements;
-       END;`);
+CREATE TRIGGER [IF NOT EXISTS] trigger_name 
+[BEFORE|AFTER|INSTEAD OF] [INSERT|UPDATE|DELETE] 
+ON table_name
+[WHEN condition]
+    BEGIN
+        statements;
+    END;`);
     }
     
     triggerBtn.addEventListener("click", triggerExampleAppend, true);
@@ -227,8 +228,8 @@
      function createIndexExampleAppend(){
        editor.setValue(`-- Ejemplo de sentencia CREATE INDEX de la documentación oficial de sqlite (https://www.sqlitetutorial.net/sqlite-index/)
    
-       CREATE [UNIQUE] INDEX index_name 
-       ON table_name(column_list);`);
+CREATE [UNIQUE] INDEX index_name 
+ON table_name(column_list);`);
     }
     
     indexBtn.addEventListener("click", createIndexExampleAppend, true);
